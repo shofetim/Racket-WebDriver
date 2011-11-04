@@ -92,10 +92,6 @@
         (error "No session"))
       (request (string-append "/session/" current-session "/refresh") 'post))
 
-    ;;Not yet implemented
-    ;;/session/:sessionId/execute
-    ;;/session/:sessionId/execute_async
-    
     ;;Returns base64 encoded png
     (define/public (get-screenshot)
       (when (null? current-session)
@@ -221,6 +217,51 @@
       (if (null? name)
           (request "/session" 'delete (string-append "/" current-session "/cookie"))
           (request "/session" 'delete (string-append "/" current-session "/cookie/" name))))
+
+    ;;TODO
+    ;;Not yet implemented
+    ;;/session/:sessionId/execute
+    ;;/session/:sessionId/execute_async
+
+    (define/public (post-ime-deactivate)
+      (when (null? current-session)
+        (error "No session"))
+      (request (string-append "/session/" current-session "/refresh") 'post))
+    
+    ;; post
+    ;; /ime/deactivate
+    ;; /ime/activate
+    ;; /frame
+    ;; /window
+    ;; /cookie
+    ;; /element
+    ;; /elements
+    ;; /element/active
+    ;; /element/:id/element
+    ;; /element/:id/elements
+    ;; /element/:id/click
+    ;; /element/:id/submit
+    ;; /element/:id/value
+    ;; /keys
+    ;; /element/:id/clear
+    ;; /orientation
+    ;; /alert_text
+    ;; /accept_alert
+    ;; /dismiss_alert
+    ;; /moveto
+    ;; /click
+    ;; /buttondown
+    ;; /buttonup
+    ;; /doubleclick
+    ;; /touch/click
+    ;; /touch/down
+    ;; /touch/up
+    ;; /touch/move
+    ;; /touch/scroll
+    ;; /touch/doubleclick
+    ;; /touch/longclick
+    ;; /touch/flick
+
 
 
 

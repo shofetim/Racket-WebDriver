@@ -1,0 +1,6 @@
+* Racket WebDriver
+  An API for WebDriver wire protocol
+  [[http://code.google.com/p/selenium/wiki/JsonWireProtocol][http://code.google.com/p/selenium/wiki/JsonWireProtocol]]
+
+  For scripting / driving web browsers and functional web application testing
+ 

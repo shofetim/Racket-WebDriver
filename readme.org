@@ -4,3 +4,9 @@
 
   For scripting / driving web browsers and functional web application testing
  
+** Status
+   Tuesday, 08. November 2011
+   Part way through testing the API wrapper I discovered that WebDriver is not
+   yet mature enough for my needs, and I'm stopping work until it is. A large
+   number of the commands are not supported in the current ChromeDriver which is
+   the one I'm interested in. See the tests.

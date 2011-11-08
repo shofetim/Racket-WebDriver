@@ -64,9 +64,9 @@
                'get
                (string-append current-session "/window_handles")))
     
-    (define/public (get-url url)
+    (define/public (get-url)
       (check-session)
-      (request "/session" 'get (string-append "/" current-session "/" url)))
+      (request "/session" 'get (string-append "/" current-session "/url")))
 
     (define/public (post-url url)
       (check-session)
@@ -76,15 +76,21 @@
     
     (define/public (post-forward)
       (check-session)
-      (request (string-append "/session/" current-session "/forward") 'post))
+      (request (string-append "/session/" current-session "/forward") 
+               'post
+               (hasheq 'value "")))
     
     (define/public (post-back)
       (check-session)
-      (request (string-append "/session/" current-session "/back") 'post))
+      (request (string-append "/session/" current-session "/back") 
+               'post
+               (hasheq 'value "")))
     
     (define/public (post-refresh)
       (check-session)
-      (request (string-append "/session/" current-session "/refresh") 'post))
+      (request (string-append "/session/" current-session "/refresh") 
+               'post
+               (hasheq 'value "")))
 
     ;;Returns base64 encoded png
     (define/public (get-screenshot)
@@ -93,29 +99,29 @@
                'get 
                (string-append "/" current-session "/screenshot")))
 
-    (define/public (get-ime-available_engines)
+    (define/public (get-ime-available-engines)
       (check-session)
       (request "/session" 
                'get
-               (string-append "/" current-session "/ime/available_engines/")))
+               (string-append "/" current-session "/ime/available_engines")))
 
     (define/public (get-ime-active-engine)
       (check-session)
       (request "/session" 
                'get
-               (string-append "/" current-session "/ime/active_engine/")))
+               (string-append "/" current-session "/ime/active_engine")))
 
     (define/public (get-ime-activated)
       (check-session)
       (request "/session" 
                'get
-               (string-append "/" current-session "/ime/activated/")))
+               (string-append "/" current-session "/ime/activated")))
 
     (define/public (get-cookie)
       (check-session)
       (request "/session" 
                'get
-               (string-append "/" current-session "/cookie/")))
+               (string-append "/" current-session "/cookie")))
 
     (define/public (get-source)
       (check-session)
@@ -213,6 +219,19 @@
                'get
                (string-append "/" current-session "/alert_text")))
 
+    (define/public (get-window-size [handle "current"])
+      (check-session)
+      (request "/session" 
+               'get
+               (string-append "/" current-session "/window/" handle "/size")))
+
+    (define/public (get-window-position [handle "current"])
+      (check-session)
+      (request "/session" 
+               'get
+               (string-append "/" current-session "/window/" handle "/position")))
+
+
     (define/public (delete-window)
       (check-session)
       (request "/session" 
@@ -230,7 +249,13 @@
     (define/public (post-ime-deactivate)
       (check-session)
       (request (string-append "/session/" current-session "/ime/deactivate")
-               'post))
+               'post
+               (hasheq 'value "")))
+
+    (define/public (delete-ime-deactivate)
+      (check-session)
+      (request (string-append "/session/" current-session "/ime/deactivate")
+               'delete))
 
     (define/public (post-ime-activate arg)
       (check-session)
@@ -239,11 +264,27 @@
 
     (define/public (post-frame arg)
       (check-session)
-      (request (string-append "/session/" current-session "/frame") 'post arg))
+      (request (string-append "/session/" current-session "/frame") 
+               'post 
+               (hasheq 'value arg)))
     
     (define/public (post-window arg)
       (check-session)
-      (request (string-append "/session/" current-session "/window") 'post arg))
+      (request (string-append "/session/" current-session "/window") 
+               'post
+               arg))
+
+    (define/public (post-window-size arg [handle "current"])
+      (check-session)
+      (request (string-append "/session/" current-session "/window/" handle "/size") 
+               'post
+               arg))
+
+    (define/public (post-window-position arg [handle "current"])
+      (check-session)
+      (request (string-append "/session/" current-session "/window/" handle "/position") 
+               'post
+               arg))
     
     (define/public (post-cookie arg)
       (check-session)
@@ -282,7 +323,7 @@
     (define/public (post-element-submit id)
       (check-session)
       (request (string-append "/session/" current-session "/element/" 
-                              id "/submit") 'post))
+                              id "/submit") 'post (hasheq 'value '())))
 
     (define/public (post-element-value id arg)
       (check-session)
